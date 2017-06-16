@@ -4,6 +4,9 @@ body {
 .ivu-message-notice-content {
   top: 20px; }
 
+.delete {
+  float: right; }
+
 #add .ivu-icon-arrow-right-b {
   display: none; }
 #add .ivu-form-item-label {

@@ -80,6 +80,10 @@
                         <p class="time">
                             <span v-if="note.type === '1'" style="color:#3399ff"> [ 补充 ] </span>
                             {{note.date}} ( 第 {{getDiff(note.date)}} 天 )
+                            <span @click="remove(index)">
+                                <icon class="delete" type="close-round"></icon>
+                            </span>
+                            
                         </p>
 
                         <p class="content" style="margin-bottom:5px;">{{note.content}}</p>

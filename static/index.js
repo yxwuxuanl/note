@@ -176,6 +176,8 @@ const
 
                     if(response.data.status === 'success')
                     {
+                        note.id = response.data.id;
+                        
                         if(this.order === 'desc')
                         {
                             this.notes = [note].concat(this.notes);
@@ -197,6 +199,30 @@ const
                     }
 
                 });
+            },
+
+            remove(index)
+            {
+                let
+                    note = this.notes[index],
+                    vm = this;
+
+                this.$Modal.confirm({
+                    title : '删除日记',
+                    content : '确认要此日记删除?' + ` ( ${note.date} ) `,
+                    onOk()
+                    {
+                        axios.get(`./api/delete.php?id=${note.id}`).then(response => {
+
+                            if(response.data.status === 'success')
+                            {
+                                vm.$delete(vm.notes, index);
+                                this.$Message.success('已删除');
+                            }
+
+                        });
+                    }
+                })
             }
         },
 
