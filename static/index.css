@@ -1,0 +1,82 @@
+body {
+  padding: 10px 0 40px 0; }
+
+.ivu-message-notice-content {
+  top: 20px; }
+
+#add .ivu-icon-arrow-right-b {
+  display: none; }
+#add .ivu-form-item-label {
+  color: #fff;
+  font-size: 1em; }
+#add .ivu-collapse-content {
+  color: #fff;
+  background: #5cadff; }
+#add .ivu-form-item {
+  margin-bottom: 5px; }
+
+.more {
+  display: inline-block;
+  width: 100%;
+  height: 30px;
+  font-size: 14px;
+  border-radius: 0; }
+  .more .ivu-icon {
+    line-height: 20px; }
+
+.time {
+  padding-bottom: 10px;
+  font-size: 1.1em;
+  line-height: 1em;
+  padding-left: 0.3em; }
+
+.ivu-timeline {
+  margin-top: 40px; }
+
+#header {
+  text-align: center;
+  font-size: 14px;
+  line-height: 30px;
+  width: 100%;
+  border-bottom: thin solid #d7dde4;
+  position: fixed;
+  top: 0;
+  background: #3399ff;
+  z-index: 9999;
+  color: #fff; }
+
+.ivu-collapse {
+  border: 0; }
+
+.ivu-collapse > .ivu-collapse-item > .ivu-collapse-header {
+  text-align: center;
+  padding-left: 0;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  background: #3399ff; }
+
+.ivu-collapse-content > .ivu-collapse-content-box {
+  padding: 5px; }
+
+#filter {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  text-align: center; }
+  #filter .ivu-collapse-content {
+    color: #fff;
+    background: #5cadff; }
+  #filter .ivu-switch {
+    width: 95px; }
+  #filter .ivu-collapse-content-box h3 {
+    width: 100%;
+    margin-bottom: 5px;
+    text-align: center;
+    border-bottom: thin solid #fff; }
+  #filter .ivu-collapse-content-box .ivu-col {
+    margin-bottom: 15px; }
+    #filter .ivu-collapse-content-box .ivu-col:last-child, #filter .ivu-collapse-content-box .ivu-col .ivu-col {
+      margin-bottom: 0; }
+
+/*# sourceMappingURL=index.css.map */

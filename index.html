@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./static/iview.css">
+    <link rel="stylesheet" href="./static/index.css">
+    <title>2m & yoyo</title>
+</head>
+
+<body>
+    
+    <div id="app">
+        <row>
+
+            <i-col id="header">
+                <h4 v-show="!pageTop">
+                    2m <icon type="ios-heart-outline"></icon> Yoyo
+                    <span> [ {{getDiff()}} Days ]</span>
+                </h4>
+
+                <collapse v-model="collapse" v-show="pageTop" id="add"> 
+                    <panel name="2">
+                        <icon type="edit"></icon>
+
+                        <div slot="content">
+                            <i-form>
+                                <form-item label="内容">
+                                    <i-input v-model="newNote.content" type="textarea"></i-input>
+                                </form-item>
+
+                                <form-item label="心情">
+                                    <radio-group v-model="newNote.mood">
+                                        <radio v-for="(value, mood) in moods" :key="mood" :label="mood">
+                                            <icon :type="value[1]" size="16"></icon>
+                                        </radio>
+                                    </radio-group>
+                                </form-item>
+
+                                <form-item label="类型">
+
+                                    <radio-group v-model="newNote.type">
+                                        <radio :label="0">新日记</radio>
+                                        <radio :label="1">日记补充</radio>
+                                    </radio-group>
+
+                                </form-item>
+
+                                <form-item label="日期" v-show="newNote.type === 1">
+                                    <i-input v-model="newNote.date"></i-input>
+                                </form-item>
+
+                                <form-item>
+                                    <upload action="./api/uploadImage.php" 
+                                        :before-upload="beforeUpload"
+                                        :on-success="uploadSuccess"
+                                        name="image">
+                                        <icon type="ios-cloud-upload" size="25"></icon>
+                                        <p style="text-align:center">上传图片</p>
+                                    </upload>
+                                </form-item>
+
+                                <form-item>
+                                    <i-button type="primary" long :disabled="newNote.uploading || (!newNote.image && !newNote.content)" @click="post">提交</i-button>
+                                </form-item>
+                            </i-form>
+                        </div>
+
+                    </panel>
+                </collapse>
+
+            </i-col>
+
+            <i-col :xs="{span : 20, offset : 2}">
+
+                <timeline>
+                    <timeline-item v-for="(note, index) in notes" :key="index" :color="moods[note.mood][0]" v-show="filters.indexOf(note.mood) > -1">
+                        <icon slot="dot" :type="moods[note.mood][1]" size="25"></icon>
+                        <p class="time">
+                            <span v-if="note.type === '1'" style="color:#3399ff"> [ 补充 ] </span>
+                            {{note.date}} ( 第 {{getDiff(note.date)}} 天 )
+                        </p>
+
+                        <p class="content" style="margin-bottom:5px;">{{note.content}}</p>
+
+                        <p v-if="note.image">
+                            <img :src="getImageUrl(note.image)" width="100%">
+                        </p>
+                    </timeline-item>
+                    
+                </timeline>
+
+
+            </i-col>
+
+            <i-col id="filter">
+
+                <i-button @click="more" class="more" long type="primary" v-show="pageEnd" :disabled="eof">
+                    <span v-if="!eof"><icon type="ios-more" size="40"></icon></span>
+                    <span v-else><icon type="ios-more-outline" size="40"></icon></span>
+                </i-button>
+
+                <collapse v-model="collapse" v-show="!pageEnd"> 
+                    <panel name="1">
+                         筛选 & 排序 & 统计
+                        <row slot="content">
+                            <i-col>
+                                <h3>筛选事件</h3>
+                                <checkbox-group v-model="filters">
+                                    <checkbox label="n"><icon type="ios-pricetags-outline"></icon> 普通</checkbox>
+                                    <checkbox label="h"><icon type="happy-outline"></icon> 快乐</checkbox>
+                                    <checkbox label="m"><icon type="ios-heart-outline"></icon> 想念</checkbox>
+                                    <checkbox label="s"><icon type="sad-outline"></icon> 吵架</checkbox>
+                                </checkbox-group>
+                            </i-col>
+
+                            <i-col>
+                                <h3>排序方式</h3>
+                                <radio-group v-model="order" @on-change="reverse">
+                                    <radio label="desc">从近到远</radio>
+                                    <radio label="asc">从远到近</radio>
+                                </radio-group>
+                            </i-col>     
+
+                            <i-col>
+                                <h3>统计</h3>
+                                <row>
+                                    <i-col span="6" v-for="(value, mood) in moods" :key="mood" >
+                                        <i-circle :percent="count[mood][2]" :size="60" :stroke-color="'#3091F2'">
+                                            <slot>
+                                                <icon :type="value[1]" size="20"></icon>
+                                                <p style="padding-top:3px;">{{count[mood][2]}}%</p>
+                                            </slot>
+                                        </i-circle>
+                                    </i-col>
+                                </row>
+                            </i-col>      
+
+                        </row>
+                    </panel>
+                </collapse>
+
+ 
+            </i-col>
+        </row>
+
+    </div>
+
+</body>
+
+<script src="./static/vue.js"></script>
+<script src="./static/iview.min.js"></script>
+<script src="./static/axios.min.js"></script>
+<script src="./static/index.js"></script>
+
+</html>
