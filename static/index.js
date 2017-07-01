@@ -166,11 +166,7 @@ const
 
                 !note.date && (note.date = this.date);
 
-                data = `content=${note.content}`;
-                data += `&image=${note.image}`;
-                data += `&mood=${note.mood}`;
-                data += `&type=${note.type}`;
-                data += `&date=${note.date}`;
+                data = `content=${note.content}&image=${note.image}&mood=${note.mood}&type=${note.type}&date=${note.date}`;
 
                 axios.post('./api/add.php', data).then(response => {
 

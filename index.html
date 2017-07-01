@@ -78,7 +78,7 @@
                     <timeline-item v-for="(note, index) in notes" :key="index" :color="moods[note.mood][0]" v-show="filters.indexOf(note.mood) > -1">
                         <icon slot="dot" :type="moods[note.mood][1]" size="25"></icon>
                         <p class="time">
-                            <span v-if="note.type === '1'" style="color:#3399ff"> [ 补充 ] </span>
+                            <span v-if="note.type == 1" style="color:#3399ff"> [ 补充 ] </span>
                             {{note.date}} ( 第 {{getDiff(note.date)}} 天 )
                             <span @click="remove(index)">
                                 <icon class="delete" type="close-round"></icon>
@@ -94,7 +94,6 @@
                     </timeline-item>
                     
                 </timeline>
-
 
             </i-col>
 
@@ -112,10 +111,10 @@
                             <i-col>
                                 <h3>筛选事件</h3>
                                 <checkbox-group v-model="filters">
-                                    <checkbox label="n"><icon type="ios-pricetags-outline"></icon> 普通</checkbox>
-                                    <checkbox label="h"><icon type="happy-outline"></icon> 快乐</checkbox>
-                                    <checkbox label="m"><icon type="ios-heart-outline"></icon> 想念</checkbox>
-                                    <checkbox label="s"><icon type="sad-outline"></icon> 吵架</checkbox>
+                                    <checkbox label="n"><icon type="ios-pricetags-outline"></icon> </checkbox>
+                                    <checkbox label="h"><icon type="happy-outline"></icon> </checkbox>
+                                    <checkbox label="m"><icon type="ios-heart-outline"></icon> </checkbox>
+                                    <checkbox label="s"><icon type="sad-outline"></icon> </checkbox>
                                 </checkbox-group>
                             </i-col>
 

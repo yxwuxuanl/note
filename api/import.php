@@ -1,20 +1,31 @@
 <?php
 
-$db = new mysqli('127.0.0.1', 'root', '103002', 'note');
-$db->set_charset('utf8');
+include __DIR__ . '/db.php';
 
-$stmt = $db->prepare('INSERT INTO `main` (`date`, `type`, `mood`, `content`) VALUES (?,?,?,?)');
+$moods = [
+	[
+		'happy note', 'h'
+	],
+	[
+		'missing note', 'm'
+	],
+	[
+		'sad note', 's'
+	],
+	[
+		'normal note', 'n'
+	]
+];
 
-$stmt->bind_param('ssss', $date, $type, $mood, $content);
-$moods = ['s', 'h', 'm', 'n'];
-
-$content = 'Note Content';
-
-for($i = 1 ; $i <= 100 ; $i++)
+for($i = 4; $i <= 100; $i++)
 {
-    $date = '2017-' . rand(1, 6) . '-' . rand(1, 30);
-    $type = rand(0, 1);
-    $mood = $moods[rand(0, 3)];
-    $stmt->execute();
-    // break;
+	$date = date('Y-m-d',strtotime('-' . rand(0, 100) . ' day'));
+	$r = rand(0, 3);
+
+	$content = $moods[$r][0];
+	$type = rand(0, 1);
+	$mood = $moods[$r][1];
+
+	$sql = "INSERT INTO `main` (`date`, `content`, `type`, `mood`, `id`) VALUES ('$date', '$content', '$type', '$mood', $i)";
+	$db->exec($sql);
 }
